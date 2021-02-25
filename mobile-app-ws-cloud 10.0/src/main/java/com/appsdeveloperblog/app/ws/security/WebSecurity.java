@@ -31,7 +31,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.addFilter(new AuthorizationFilter(authenticationManager()))
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-				
+				//SessionCreationPolicy.STATELESS tells spring to not to store session
+				//This makes Rest API stateless
 		
 				//.addFilter(new AuthenticationFilter(authenticationManager()));
 				//Above line works with http://localhost:8080/login
