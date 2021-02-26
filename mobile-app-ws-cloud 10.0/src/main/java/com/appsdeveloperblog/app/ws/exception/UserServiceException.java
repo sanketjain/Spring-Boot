@@ -1,6 +1,6 @@
 package com.appsdeveloperblog.app.ws.exception;
 
-public class UserServiceException extends RuntimeException{
+public class UserServiceException extends RuntimeException {
 
 	private static final long serialVersionUID = 11245687654345672L;
 
@@ -8,5 +8,4 @@ public class UserServiceException extends RuntimeException{
 		super(message);
 	}
 
-	
 }
