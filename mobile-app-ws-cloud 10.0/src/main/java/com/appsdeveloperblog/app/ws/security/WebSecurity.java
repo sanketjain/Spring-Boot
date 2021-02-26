@@ -36,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		
 				//.addFilter(new AuthenticationFilter(authenticationManager()));
 				//Above line works with http://localhost:8080/login
-			}
+	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
