@@ -12,6 +12,7 @@
 	<groupId>com.appsdeveloperblog.app.ws</groupId>
 	<artifactId>mobile-app-ws-cloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>mobile-app-ws-cloud</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -49,6 +50,12 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 
