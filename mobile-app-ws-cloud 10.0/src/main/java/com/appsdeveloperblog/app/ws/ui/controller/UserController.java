@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.appsdeveloperblog.app.ws.service.AddressService;
 import com.appsdeveloperblog.app.ws.service.UserService;
 import com.appsdeveloperblog.app.ws.shared.dto.AddressDTO;
 import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
@@ -34,6 +35,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	AddressService addressesService;
+	
 //	@GetMapping
 //	public String getUser() {
 //		return "Get user was called";
