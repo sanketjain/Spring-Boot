@@ -1,6 +1,7 @@
 package com.appsdeveloperblog.app.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicUserId));
 		userEntity.setEmailVerificationStatus(false);
-		
+
 		UserEntity storedUserDetails = userRepository.save(userEntity);
 
 		// UserDto returnedValue = new UserDto();
@@ -88,7 +90,11 @@ public class UserServiceImpl implements UserService {
 		if (userEntity == null)
 			throw new UsernameNotFoundException(email);
 
-		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
+		// return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new
+		// ArrayList<>());
+
+		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(),
+				userEntity.getEmailVerificationStatus(), true, true, true, new ArrayList<>());
 	}
 
 	@Override
