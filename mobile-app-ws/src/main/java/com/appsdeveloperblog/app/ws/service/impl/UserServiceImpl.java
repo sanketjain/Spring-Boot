@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordResetTokenRepository passwordResetTokenRepository;
-	
+
 	@Override
 	public UserDto createUser(UserDto user) {
 
@@ -200,8 +200,35 @@ public class UserServiceImpl implements UserService {
 		passwordResetTokenEntity.setUserDetails(userEntity);
 		passwordResetTokenRepository.save(passwordResetTokenEntity);
 
-		returnValue = new AmazonSES().sendPasswordResetRequest(
-				userEntity.getFirstName(), userEntity.getEmail(), token);
+		returnValue = new AmazonSES().sendPasswordResetRequest(userEntity.getFirstName(), userEntity.getEmail(), token);
+
+		return returnValue;
+	}
+
+	@Override
+	public boolean resetPassword(String token, String password) {
+		boolean returnValue = false;
+
+		if (Utils.hasTokenExpired(token)) {
+			return returnValue;
+		}
+
+		PasswordResetTokenEntity passwordResetTokenEntity = passwordResetTokenRepository.findByToken(token);
+
+		if (passwordResetTokenEntity == null)
+			return returnValue;
+
+		String encodedPassword = bCryptPasswordEncoder.encode(password);
+
+		UserEntity userEntity = passwordResetTokenEntity.getUserDetails();
+		userEntity.setEncryptedPassword(encodedPassword);
+		UserEntity savedUserEntity = userRepository.save(userEntity);
+
+		if (savedUserEntity != null && savedUserEntity.getEncryptedPassword().equalsIgnoreCase(encodedPassword)) {
+			returnValue = true;
+		}
+
+		passwordResetTokenRepository.delete(passwordResetTokenEntity);
 
 		return returnValue;
 	}
