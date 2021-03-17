@@ -1,15 +1,18 @@
 package com.appsdeveloperblog.app.ws.service.impl;
 
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.appsdeveloperblog.app.ws.io.entity.UserEntity;
 import com.appsdeveloperblog.app.ws.io.repositories.UserRepository;
+import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
 
 class UserServiceImplTest {
 
@@ -33,6 +36,11 @@ class UserServiceImplTest {
 		userEntity.setEncryptedPassword("adstwekslwetjettt");
 
 		when(userRepository.findByEmail(anyString())).thenReturn(userEntity);
+
+		UserDto userDto = userService.getUser("test@test.com");
+
+		Assertions.assertNotNull(userDto);
+		Assertions.assertEquals("Sanket", userDto.getFirstName());
 	}
 
 }
