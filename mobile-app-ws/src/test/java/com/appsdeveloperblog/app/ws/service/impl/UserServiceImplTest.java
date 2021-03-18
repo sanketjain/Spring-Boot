@@ -21,6 +21,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.appsdeveloperblog.app.ws.exception.UserServiceException;
 import com.appsdeveloperblog.app.ws.io.entity.AddressEntity;
 import com.appsdeveloperblog.app.ws.io.entity.UserEntity;
 import com.appsdeveloperblog.app.ws.io.repositories.UserRepository;
@@ -84,6 +85,23 @@ class UserServiceImplTest {
 		});
 	}
 
+	@Test
+	void testCreateUser_CreateUserServiceException() {
+
+		when(userRepository.findByEmail(anyString())).thenReturn(userEntity);
+		UserDto userDto = new UserDto();
+		userDto.setAddresses(getAddressesDto());
+		userDto.setFirstName("Sanket");
+		userDto.setLastName("Jain");
+		userDto.setPassword("12345678");
+		userDto.setEmail("mr.sanketjain@gmail.com");
+
+		Assertions.assertThrows(UserServiceException.class, () -> {
+			userService.createUser(userDto);
+		});
+	}
+
+	
 	@Test
 	void testCreateUser() {
 		when(userRepository.findByEmail(anyString())).thenReturn(null);
