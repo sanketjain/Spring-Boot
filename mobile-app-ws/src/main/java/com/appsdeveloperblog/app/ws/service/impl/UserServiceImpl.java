@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	PasswordResetTokenRepository passwordResetTokenRepository;
 
+	@Autowired
+	AmazonSES amazonSES;
+	
 	@Override
 	public UserDto createUser(UserDto user) {
 
@@ -73,7 +76,7 @@ public class UserServiceImpl implements UserService {
 		UserDto returnValue = modelMapper.map(storedUserDetails, UserDto.class);
 
 		// Send an email to user to verify their email address
-		new AmazonSES().verifyEmail(returnValue);
+		amazonSES.verifyEmail(returnValue);
 
 		return returnValue;
 	}

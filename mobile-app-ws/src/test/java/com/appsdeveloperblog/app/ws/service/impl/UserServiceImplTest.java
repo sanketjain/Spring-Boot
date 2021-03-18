@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.appsdeveloperblog.app.ws.io.entity.AddressEntity;
 import com.appsdeveloperblog.app.ws.io.entity.UserEntity;
 import com.appsdeveloperblog.app.ws.io.repositories.UserRepository;
+import com.appsdeveloperblog.app.ws.shared.AmazonSES;
 import com.appsdeveloperblog.app.ws.shared.Utils;
 import com.appsdeveloperblog.app.ws.shared.dto.AddressDTO;
 import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
@@ -40,6 +42,9 @@ class UserServiceImplTest {
 
 	@Mock
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Mock 
+	AmazonSES amazonSES;
 
 	String userId = "akl53tklh";
 	String encryptedPassword = "adstwekslwetjettt";
@@ -86,6 +91,7 @@ class UserServiceImplTest {
 		when(utils.generateUserId(anyInt())).thenReturn(userId);
 		when(bCryptPasswordEncoder.encode(anyString())).thenReturn(encryptedPassword);
 		when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
+		Mockito.doNothing().when(amazonSES).verifyEmail(any(UserDto.class));
 
 		UserDto userDto = new UserDto();
 		userDto.setAddresses(getAddressesDto());
