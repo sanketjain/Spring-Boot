@@ -1,22 +1,22 @@
 package com.appsdeveloperblog.app.ws.ui.controller;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.appsdeveloperblog.app.ws.service.impl.UserServiceImpl;
 import com.appsdeveloperblog.app.ws.shared.dto.AddressDTO;
 import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
+import com.appsdeveloperblog.app.ws.ui.model.response.UserRest;
 
 class UserControllerTest {
 
@@ -44,11 +44,22 @@ class UserControllerTest {
 		userDto.setUserId(USER_ID);
 		userDto.setAddresses(getAddressesDto());
 		userDto.setEncryptedPassword("xlkitoneds");
+
 	}
 
 	@Test
 	void testGetUserString() {
 		when(userService.getUserByUserId(anyString())).thenReturn(userDto);
+
+		UserRest userRest = userController.getUser(USER_ID);
+
+		Assertions.assertNotNull(userRest);
+		Assertions.assertEquals(USER_ID, userRest.getUserId());
+		Assertions.assertEquals(userDto.getFirstName(), userRest.getFirstName());
+		Assertions.assertEquals(userDto.getLastName(), userRest.getLastName());
+//		Assertions.assertTrue(userDto.getAddresses().size() == userRest.getAddresses().size());
+//		Assertions.assertTrue(userDto.getAddresses().size() == 2);
+//		Assertions.assertTrue(2 == userRest.getAddresses().size());
 	}
 
 	private List<AddressDTO> getAddressesDto() {
