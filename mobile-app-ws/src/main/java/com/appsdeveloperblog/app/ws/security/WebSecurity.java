@@ -32,6 +32,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL)
 				.permitAll()
+				.antMatchers(SecurityConstants.H2_CONSOLE)
+				.permitAll()
 				.anyRequest().authenticated().and()
 				.addFilter(getAuthenticationFilter())
 				.addFilter(new AuthorizationFilter(authenticationManager()))
@@ -42,6 +44,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		
 				//.addFilter(new AuthenticationFilter(authenticationManager()));
 				//Above line works with http://localhost:8080/login
+		
+				http.headers().frameOptions().disable();
 	}
 	
 	@Override
