@@ -60,7 +60,7 @@ class UserServiceImplTest {
 		userEntity.setLastName("Jain");
 		userEntity.setUserId(userId);
 		userEntity.setEncryptedPassword(encryptedPassword);
-		userEntity.setEmail("mr.sanketjain@gmail.com");
+		userEntity.setEmail("test@test.com");
 		userEntity.setEmailVerificationToken("7sadkfotiu6");
 		userEntity.setAddresses(getAddressesEntity());
 	}
@@ -94,7 +94,7 @@ class UserServiceImplTest {
 		userDto.setFirstName("Sanket");
 		userDto.setLastName("Jain");
 		userDto.setPassword("12345678");
-		userDto.setEmail("mr.sanketjain@gmail.com");
+		userDto.setEmail("test@test.com");
 
 		Assertions.assertThrows(UserServiceException.class, () -> {
 			userService.createUser(userDto);
@@ -116,7 +116,7 @@ class UserServiceImplTest {
 		userDto.setFirstName("Sanket");
 		userDto.setLastName("Jain");
 		userDto.setPassword("12345678");
-		userDto.setEmail("mr.sanketjain@gmail.com");
+		userDto.setEmail("test@test.com");
 
 		UserDto storedUserDetails = userService.createUser(userDto);
 		Assertions.assertNotNull(storedUserDetails);
