@@ -38,7 +38,7 @@ class UserControllerTest {
 		userDto = new UserDto();
 		userDto.setFirstName("Sanket");
 		userDto.setLastName("Jain");
-		userDto.setEmail("mr.sanketjain@gmail.com");
+		userDto.setEmail("test@test.com");
 		userDto.setEmailVerificationStatus(Boolean.FALSE);
 		userDto.setEmailVerificationToken(null);
 		userDto.setUserId(USER_ID);
