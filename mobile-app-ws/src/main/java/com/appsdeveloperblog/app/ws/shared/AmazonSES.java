@@ -16,7 +16,7 @@ import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
 @Service
 public class AmazonSES {
 
-	final String FROM = "mr.sanketjain@gmail.com";
+	final String FROM = "test@test.com";
 
 	final String SUBJECT = "One last step to complete your registration with PhotoApp";
 
